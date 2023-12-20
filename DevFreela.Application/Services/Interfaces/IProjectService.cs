@@ -7,10 +7,10 @@ namespace DevFreela.Application.Services.Interfaces
     {
         List<ProjectViewModel> GetAll(string query);
         ProjectDetailViewModel GetById(int id);
-        int Create(NewProjectViewModel inputViewModel);
-        void Update(UpdateProjectViewModel inpytViewModel);
+        int Create(NewProjectInputModel inputViewModel);
+        void Update(UpdateProjectInputModel inpytViewModel);
         void Delete(int id);
-        void CreateComment(CreateCommentViewModel createCommentViewModel);
+        void CreateComment(CreateCommentInputModel createCommentViewModel);
         void Start(int id);
         void Finish(int id);
     }

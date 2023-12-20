@@ -12,7 +12,7 @@ namespace DevFreela.Application.Services.Implementations
 
         public ProjectService(DevFreelaDbContext context)
         {
-            _context = context;  
+            _context = context;
         }
 
         public List<ProjectViewModel> GetAll(string query)
@@ -23,14 +23,14 @@ namespace DevFreela.Application.Services.Implementations
                                     .Select(p => new ProjectViewModel(p.Title, p.CreatedAt))
                                     .ToList();
 
-            return projectsViewModel;            
+            return projectsViewModel;
         }
 
         public ProjectDetailViewModel GetById(int id)
         {
             var project = _context.Projects.SingleOrDefault(p => p.Id == id);
 
-            var projectViewModel = new ProjectDetailViewModel ( 
+            var projectViewModel = new ProjectDetailViewModel(
                                     project.Id,
                                     project.Title,
                                     project.Description,
@@ -41,7 +41,7 @@ namespace DevFreela.Application.Services.Implementations
         }
 
 
-        public int Create(NewProjectViewModel inputViewModel)
+        public int Create(NewProjectInputModel inputViewModel)
         {
             var project = new Project(inputViewModel.Title,
                                       inputViewModel.Description,
@@ -55,9 +55,11 @@ namespace DevFreela.Application.Services.Implementations
         }
 
 
-        public void Update(UpdateProjectViewModel inputViewModell)
+        public void Update(UpdateProjectInputModel inputModel)
         {
-            throw new NotImplementedException();
+            var project = _context.Projects.SingleOrDefault(p => p.Id == inputModel.Id);
+
+            project.Update(inputModel.Title, inputModel.Description, inputModel.TotalCoast);
         }
 
         public void Delete(int id)
@@ -67,7 +69,7 @@ namespace DevFreela.Application.Services.Implementations
             project.Cancel();
         }
 
-        public void CreateComment(CreateCommentViewModel inputViewModel)
+        public void CreateComment(CreateCommentInputModel inputViewModel)
         {
             var comment = new ProjectComment(inputViewModel.Content,
                                              inputViewModel.IdUser,
@@ -78,12 +80,15 @@ namespace DevFreela.Application.Services.Implementations
 
         public void Start(int id)
         {
-            throw new NotImplementedException();
+            var project = _context.Projects.SingleOrDefault(p => p.Id == id);
+            project.Start();
         }
 
         public void Finish(int id)
         {
-            throw new NotImplementedException();
-        }       
+            var project = _context.Projects.SingleOrDefault(p => p.Id == id);
+
+            project.Finish();
+        }
     }
 }
