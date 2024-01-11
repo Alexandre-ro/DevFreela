@@ -26,6 +26,7 @@ namespace DevFreela.Infrastructure.Persistence
                 new Skill("DotNet"),
                 new Skill("PHP"),
                 new Skill("SQL"),
+                new Skill("Javascript"),
                 new Skill("Scrum")
             };
         }
