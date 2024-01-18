@@ -1,5 +1,7 @@
 using DevFreela.API.Models;
-using Microsoft.Extensions.DependencyInjection;
+using DevFreela.Application.Services.Implementations;
+using DevFreela.Application.Services.Interfaces;
+using DevFreela.Infrastructure.Persistence;
 
 namespace DevFreela.API
 {
@@ -17,6 +19,12 @@ namespace DevFreela.API
             builder.Services.AddSwaggerGen();
 
             builder.Services.Configure<OpeningTimeOption>(builder.Configuration.GetSection("OpeningTime"));
+
+            builder.Services.AddSingleton<DevFreelaDbContext>();
+
+            builder.Services.AddScoped<IProjectService, ProjectService>(); 
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             var app = builder.Build();
 
