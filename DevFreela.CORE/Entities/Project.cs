@@ -4,12 +4,12 @@ namespace DevFreela.Core.Entities
 {
     public class Project : BaseEntity
     {
-        public Project(string title, string description, int idClient, int idFreelance, decimal totalCoast)
+        public Project(string title, string description, int idClient, int idFreelancer, decimal totalCoast)
         {
             Title           = title;
             Description     = description;
             IdClient        = idClient;
-            IdFreelancer    = idFreelance;
+            IdFreelancer    = idFreelancer;
             TotalCoast      = totalCoast;
             CreatedAt       = DateTime.Now;
             Status          = ProjectStatusEnum.Created;
