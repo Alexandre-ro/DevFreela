@@ -40,7 +40,7 @@ namespace DevFreela.API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] NewProjectInputModel inputModel)
         {
-            if (inputModel.Title.Length < 30)
+            if (inputModel.Title.Length < 4 )
             {
                 return BadRequest();
             }
