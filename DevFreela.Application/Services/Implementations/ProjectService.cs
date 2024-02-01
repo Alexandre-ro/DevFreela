@@ -52,6 +52,7 @@ namespace DevFreela.Application.Services.Implementations
                                       inputViewModel.TotalCoast);
 
             _context.Projects.Add(project);
+            _context.SaveChanges();
 
             return project.Id;
         }
@@ -62,6 +63,7 @@ namespace DevFreela.Application.Services.Implementations
             var project = _context.Projects.SingleOrDefault(p => p.Id == inputModel.Id);
 
             project.Update(inputModel.Title, inputModel.Description, inputModel.TotalCoast);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
@@ -69,6 +71,7 @@ namespace DevFreela.Application.Services.Implementations
             var project = _context.Projects.SingleOrDefault(p => p.Id == id);
 
             project.Cancel();
+            _context.SaveChanges();
         }
 
         public void CreateComment(CreateCommentInputModel inputViewModel)
@@ -78,12 +81,14 @@ namespace DevFreela.Application.Services.Implementations
                                              inputViewModel.IdProject);
 
             _context.Comments.Add(comment);
+            _context.SaveChanges();
         }
 
         public void Start(int id)
         {
             var project = _context.Projects.SingleOrDefault(p => p.Id == id);
             project.Start();
+            _context.SaveChanges();
         }
 
         public void Finish(int id)
@@ -91,6 +96,7 @@ namespace DevFreela.Application.Services.Implementations
             var project = _context.Projects.SingleOrDefault(p => p.Id == id);
 
             project.Finish();
+            _context.SaveChanges();
         }
     }
 }
