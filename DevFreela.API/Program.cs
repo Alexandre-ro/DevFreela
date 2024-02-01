@@ -24,7 +24,9 @@ namespace DevFreela.API
             var ConnectionString = builder.Configuration.GetConnectionString("DevFreelaCs");
 
             builder.Services.AddDbContext<DevFreelaDbContext>(options => options.UseSqlServer(ConnectionString));
-
+            
+            //Banco de dados em memória temporária para testes
+            //builder.Services.AddDbContext<DevFreelaDbContext>(options => options.UseInMemoryDatabase("devfreela"));
 
             builder.Services.AddScoped<IProjectService, ProjectService>(); 
             builder.Services.AddScoped<IUserService, UserService>();
