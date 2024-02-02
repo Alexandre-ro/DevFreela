@@ -3,3 +3,5 @@ Comando para executar as migrations
 
 Comando para executar os scripts da base de dados
 	dotnet ef database update -s ../DevFreela.API/DevFreela.API.csproj
+
+
