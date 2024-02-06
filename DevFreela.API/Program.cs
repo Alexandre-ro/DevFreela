@@ -1,7 +1,9 @@
 using DevFreela.API.Models;
+using DevFreela.Application.Commands.CreateProject;
 using DevFreela.Application.Services.Implementations;
 using DevFreela.Application.Services.Interfaces;
 using DevFreela.Infrastructure.Persistence;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevFreela.API
@@ -31,6 +33,8 @@ namespace DevFreela.API
             builder.Services.AddScoped<IProjectService, ProjectService>(); 
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUserService, UserService>();
+
+            builder.Services.AddMediatR(typeof(CreateProjectCommand));
 
             var app = builder.Build();
 
