@@ -1,5 +1,6 @@
 ﻿using DevFreela.Application.Commands.CreateProject;
 using DevFreela.Application.Commands.DeleteProjet;
+using DevFreela.Application.Commands.UpdateProject;
 using DevFreela.Application.InputModels.Project;
 using DevFreela.Application.Services.Interfaces;
 using MediatR;
@@ -56,14 +57,15 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] UpdateProjectInputModel inputModel)
+        public async Task<IActionResult> Put(int id, [FromBody] UpdateProjectCommand command)
         {
-            if (inputModel.Description.Length > 200)
+            if (command.Description.Length > 200)
             {
                 return BadRequest();
             }
 
-            _service.Update(inputModel);
+            //_service.Update(inputModel);
+            await _mediator.Send(command);
 
             return NoContent();
         }
