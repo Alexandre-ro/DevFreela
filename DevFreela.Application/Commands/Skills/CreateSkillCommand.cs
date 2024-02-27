@@ -4,7 +4,7 @@ namespace DevFreela.Application.Commands.Skills
 {
     public class CreateSkillCommand : IRequest<int>
     {      
-        public string Description { get; private set; }
-        public DateTime CreatedAt { get; private set; }
+        public string Description { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

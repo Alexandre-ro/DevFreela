@@ -1,10 +1,10 @@
-﻿using DevFreela.Application.Commands.Skills;
-using DevFreela.Core.Entities;
+﻿using DevFreela.Core.Entities;
 using DevFreela.Infrastructure.Persistence;
+using MediatR;
 
 namespace DevFreela.Application.Commands.Skills
 {
-    public class CreateCommandSkillHandler
+    public class CreateCommandSkillHandler : IRequestHandler<CreateSkillCommand, int>
     {
         public readonly DevFreelaDbContext _context;
 

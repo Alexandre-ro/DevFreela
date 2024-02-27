@@ -1,5 +1,6 @@
 ﻿using DevFreela.Application.Commands.Skills;
 using DevFreela.Application.Queries.Skills.GetAllSkills;
+using DevFreela.Application.Queries.Skills.GetById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,9 +29,19 @@ namespace DevFreela.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id) 
         {
-        
+            var query = new GetSkillByIdQuery(id);
+
+            var skill = await _mediator.Send(query);
+
+            if (skill == null) 
+            {
+                return BadRequest();
+            }
+
+            return Ok(skill);        
         }
 
+        [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateSkillCommand command) 
         {
             if (command.Description.Length < 4 ) 
