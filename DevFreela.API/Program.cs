@@ -1,5 +1,8 @@
 using DevFreela.API.Models;
-using DevFreela.Application.Commands.CreateProject;
+using DevFreela.Application.Commands.Comment.CreateComment;
+using DevFreela.Application.Commands.Projects.CreateProject;
+using DevFreela.Application.Commands.Projects.DeleteProjet;
+using DevFreela.Application.Commands.Projects.UpdateProject;
 using DevFreela.Application.Services.Implementations;
 using DevFreela.Application.Services.Interfaces;
 using DevFreela.Infrastructure.Persistence;
@@ -34,7 +37,11 @@ namespace DevFreela.API
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUserService, UserService>();
 
+            //Mediator
             builder.Services.AddMediatR(typeof(CreateProjectCommand));
+            builder.Services.AddMediatR(typeof(CreateCommentCommand));
+            builder.Services.AddMediatR(typeof(DeleteProjectCommand));
+            builder.Services.AddMediatR(typeof(UpdateProjectCommand));
 
             var app = builder.Build();
 

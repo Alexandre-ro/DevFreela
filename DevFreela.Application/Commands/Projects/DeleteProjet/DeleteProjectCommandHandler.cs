@@ -1,7 +1,7 @@
 ﻿using DevFreela.Infrastructure.Persistence;
 using MediatR;
 
-namespace DevFreela.Application.Commands.DeleteProjet
+namespace DevFreela.Application.Commands.Projects.DeleteProjet
 {
     public class DeleteProjectCommandHandler : IRequestHandler<DeleteProjectCommand, Unit>
     {
@@ -16,7 +16,7 @@ namespace DevFreela.Application.Commands.DeleteProjet
         {
             var project = _context.Projects.SingleOrDefault(p => p.Id == request.Id);
 
-             project.Cancel();
+            project.Cancel();
             await _context.SaveChangesAsync();
 
             return Unit.Value;

@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Queries\GetUser\" />
+    <Folder Include="Queries\Users\" />
   </ItemGroup>
 
 </Project>

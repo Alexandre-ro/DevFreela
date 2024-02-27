@@ -1,8 +1,8 @@
-﻿using DevFreela.Application.Commands.CreateProject;
-using DevFreela.Application.Commands.DeleteProjet;
-using DevFreela.Application.Commands.UpdateProject;
-using DevFreela.Application.InputModels.Project;
-using DevFreela.Application.Queries.GetAllProjects;
+﻿using DevFreela.Application.Commands.Comment.CreateComment;
+using DevFreela.Application.Commands.Projects.CreateProject;
+using DevFreela.Application.Commands.Projects.DeleteProjet;
+using DevFreela.Application.Commands.Projects.UpdateProject;
+using DevFreela.Application.Queries.Projects.GetAllProjects;
 using DevFreela.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -96,7 +96,7 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpPost("{id}/comments")]
-        public async Task<IActionResult> PostComment(int id, [FromBody] CreateCommentInputModel command)
+        public async Task<IActionResult> PostComment(int id, [FromBody] CreateCommentCommand command)
         {
             await _mediator.Send(command);
 

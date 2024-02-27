@@ -2,7 +2,7 @@
 using DevFreela.Infrastructure.Persistence;
 using MediatR;
 
-namespace DevFreela.Application.Queries.GetAllSkills
+namespace DevFreela.Application.Queries.Skills.GetAllSkills
 {
     public class GetAllSkillsHandler : IRequestHandler<GetAllSkillsQuery, List<SkillViewModel>>
     {

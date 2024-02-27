@@ -1,7 +1,7 @@
 ﻿using DevFreela.Infrastructure.Persistence;
 using MediatR;
 
-namespace DevFreela.Application.Commands.UpdateProject
+namespace DevFreela.Application.Commands.Projects.UpdateProject
 {
     public class UpdateProjectCommandHandller : IRequestHandler<UpdateProjectCommand, int>
     {
@@ -10,7 +10,7 @@ namespace DevFreela.Application.Commands.UpdateProject
         public UpdateProjectCommandHandller(DevFreelaDbContext context)
         {
             _context = context;
-        }       
+        }
 
         public async Task<int> Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
         {

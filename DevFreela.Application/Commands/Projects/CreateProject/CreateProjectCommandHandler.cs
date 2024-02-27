@@ -2,7 +2,7 @@
 using DevFreela.Infrastructure.Persistence;
 using MediatR;
 
-namespace DevFreela.Application.Commands.CreateProject
+namespace DevFreela.Application.Commands.Projects.CreateProject
 {
     public class CreateProjectCommandHandler : IRequestHandler<CreateProjectCommand, int>
     {
@@ -12,7 +12,6 @@ namespace DevFreela.Application.Commands.CreateProject
         {
             _context = context;
         }
-
 
         public async Task<int> Handle(CreateProjectCommand request, CancellationToken cancellationToken)
         {

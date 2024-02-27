@@ -3,7 +3,7 @@ using DevFreela.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevFreela.Application.Queries.GetAllProjects
+namespace DevFreela.Application.Queries.Projects.GetAllProjects
 {
     public class GetAllProjectsHandler : IRequestHandler<GetAllProjectsQuery, List<ProjectViewModel>>
     {
@@ -11,7 +11,7 @@ namespace DevFreela.Application.Queries.GetAllProjects
 
         public GetAllProjectsHandler(DevFreelaDbContext context)
         {
-            _context = context; 
+            _context = context;
         }
 
         public async Task<List<ProjectViewModel>> Handle(GetAllProjectsQuery request, CancellationToken cancellationToken)
