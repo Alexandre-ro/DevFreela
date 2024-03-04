@@ -4,6 +4,7 @@ using DevFreela.Application.Commands.Projects.CreateProject;
 using DevFreela.Application.Commands.Projects.DeleteProjet;
 using DevFreela.Application.Commands.Projects.UpdateProject;
 using DevFreela.Application.Commands.Skills;
+using DevFreela.Application.Queries.Projects.GetProjectById;
 using DevFreela.Application.Queries.Skills.GetById;
 using DevFreela.Application.Services.Implementations;
 using DevFreela.Application.Services.Interfaces;
@@ -46,6 +47,7 @@ namespace DevFreela.API
             builder.Services.AddMediatR(typeof(UpdateProjectCommand));
             builder.Services.AddMediatR(typeof(GetSkillByIdQuery));
             builder.Services.AddMediatR(typeof(CreateSkillCommand));
+            builder.Services.AddMediatR(typeof(GetProjectByIdQuery));
 
             var app = builder.Build();
 

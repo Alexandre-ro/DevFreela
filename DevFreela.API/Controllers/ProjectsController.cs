@@ -3,6 +3,7 @@ using DevFreela.Application.Commands.Projects.CreateProject;
 using DevFreela.Application.Commands.Projects.DeleteProjet;
 using DevFreela.Application.Commands.Projects.UpdateProject;
 using DevFreela.Application.Queries.Projects.GetAllProjects;
+using DevFreela.Application.Queries.Projects.GetProjectById;
 using DevFreela.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -35,9 +36,13 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var project = _service.GetById(id);
+            // var project = _service.GetById(id);
+
+            var queryProject = new GetProjectByIdQuery(id);
+
+            var project = await _mediator.Send(queryProject);
 
             if (project == null)
             {
