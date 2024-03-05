@@ -8,7 +8,10 @@ using DevFreela.Application.Queries.Projects.GetProjectById;
 using DevFreela.Application.Queries.Skills.GetById;
 using DevFreela.Application.Services.Implementations;
 using DevFreela.Application.Services.Interfaces;
+using DevFreela.Core.Repositories;
+using DevFreela.CORE.Repositories;
 using DevFreela.Infrastructure.Persistence;
+using DevFreela.Infrastructure.Persistence.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,6 +39,7 @@ namespace DevFreela.API
             //Banco de dados em memória temporária para testes
             //builder.Services.AddDbContext<DevFreelaDbContext>(options => options.UseInMemoryDatabase("devfreela"));
 
+            //Services
             builder.Services.AddScoped<IProjectService, ProjectService>(); 
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUserService, UserService>();
@@ -48,6 +52,10 @@ namespace DevFreela.API
             builder.Services.AddMediatR(typeof(GetSkillByIdQuery));
             builder.Services.AddMediatR(typeof(CreateSkillCommand));
             builder.Services.AddMediatR(typeof(GetProjectByIdQuery));
+
+            //Repositories
+            builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+            builder.Services.AddScoped<ISkillRepository, SkillRepository>();
 
             var app = builder.Build();
 

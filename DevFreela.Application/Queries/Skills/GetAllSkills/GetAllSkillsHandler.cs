@@ -1,21 +1,21 @@
 ﻿using DevFreela.Application.ViewModels.Project;
-using DevFreela.Infrastructure.Persistence;
+using DevFreela.CORE.Repositories;
 using MediatR;
 
 namespace DevFreela.Application.Queries.Skills.GetAllSkills
 {
     public class GetAllSkillsHandler : IRequestHandler<GetAllSkillsQuery, List<SkillViewModel>>
     {
-        private readonly DevFreelaDbContext _context;
+        private readonly ISkillRepository _repository;
 
-        public GetAllSkillsHandler(DevFreelaDbContext context)
+        public GetAllSkillsHandler(ISkillRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public async Task<List<SkillViewModel>> Handle(GetAllSkillsQuery request, CancellationToken cancellationToken)
         {
-            var skills = _context.Skills;
+            var skills = await _repository.GetAll();
 
             var skillsViewModel = skills.Select(s => new SkillViewModel(s.Id, s.Description))
                                         .ToList();
