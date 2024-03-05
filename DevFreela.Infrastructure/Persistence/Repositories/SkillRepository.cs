@@ -13,12 +13,12 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<List<Skill>> GetAll()
+        public async Task<List<Skill>> GetAllAsync()
         {
             return await _context.Skills.ToListAsync();
         }
 
-        public async Task<Skill> GetById(int id)
+        public async Task<Skill> GetByIdAsync(int id)
         {
             var skill = await _context.Skills.SingleOrDefaultAsync(s => s.Id == id);
 

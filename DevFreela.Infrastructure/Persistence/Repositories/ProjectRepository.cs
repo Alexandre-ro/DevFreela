@@ -13,13 +13,13 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<List<Project>> GetAll()
+        public async Task<List<Project>> GetAllAsync()
         {
             return await _context.Projects.ToListAsync();
         }
 
 
-        public async Task<Project> GetById(int id) 
+        public async Task<Project> GetByIdAsync(int id) 
         {
             var project = await _context.Projects
                                   .Include(p => p.Client)
