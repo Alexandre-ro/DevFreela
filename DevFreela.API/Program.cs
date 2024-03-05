@@ -55,7 +55,7 @@ namespace DevFreela.API
 
             //Repositories
             builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
-            builder.Services.AddScoped<ISkillRepository, SkillRepository>();
+            builder.Services.AddScoped<ISkillRepository, SkillRepository>();            
 
             var app = builder.Build();
 
