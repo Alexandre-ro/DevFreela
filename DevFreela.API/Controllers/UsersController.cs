@@ -33,6 +33,15 @@ namespace DevFreela.API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] CreateUserInputModel inputModel)
         {
+            if (!ModelState.IsValid) 
+            {
+                var messages = ModelState.SelectMany(ms => ms.Value.Errors)
+                                         .Select(e => e.ErrorMessage)
+                                         .ToList();
+
+                return BadRequest(messages);
+            }
+
             var id = _userService.Create(inputModel);
 
             return CreatedAtAction(nameof(GetById), new { Id = 1 }, inputModel);
