@@ -63,6 +63,7 @@ namespace DevFreela.API
             //Validator
             builder.Services.AddFluentValidationAutoValidation();
             builder.Services.AddValidatorsFromAssemblyContaining<CreateUserValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<CreateProjectValidator>();
 
             var app = builder.Build();
 
