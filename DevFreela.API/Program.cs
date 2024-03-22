@@ -11,6 +11,8 @@ using DevFreela.Application.Services.Interfaces;
 using DevFreela.Application.Validators;
 using DevFreela.Core.Repositories;
 using DevFreela.CORE.Repositories;
+using DevFreela.CORE.Services;
+using DevFreela.Infrastructure.AuthService;
 using DevFreela.Infrastructure.Persistence;
 using DevFreela.Infrastructure.Persistence.Repositories;
 using FluentValidation;
@@ -64,6 +66,9 @@ namespace DevFreela.API
             builder.Services.AddFluentValidationAutoValidation();
             builder.Services.AddValidatorsFromAssemblyContaining<CreateUserValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<CreateProjectValidator>();
+
+            //AuthService
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
             var app = builder.Build();
 
