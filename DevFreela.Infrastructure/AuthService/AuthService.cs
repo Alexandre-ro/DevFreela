@@ -19,9 +19,9 @@ namespace DevFreela.Infrastructure.AuthService
 
         public string GenerateJwtToken(string email, string role)
         {
-            var issuer = _configuration["Jwt:Issuer"];
-            var audience = _configuration["Jwt:Audience"];
-            var Key = _configuration["Jwt:Key"];
+            var issuer      = _configuration["Jwt:Issuer"];
+            var audience    = _configuration["Jwt:Audience"];
+            var Key         = _configuration["Jwt:Key"];
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

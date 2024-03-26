@@ -1,6 +1,7 @@
 ﻿using DevFreela.API.Models;
 using DevFreela.Application.InputModels.User;
 using DevFreela.Application.Services.Interfaces;
+using DevFreela.Application.ViewModels.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevFreela.API.Controllers
@@ -47,10 +48,17 @@ namespace DevFreela.API.Controllers
             return CreatedAtAction(nameof(GetById), new { Id = 1 }, inputModel);
         }
 
-        [HttpPut("{id}/login")]
-        public IActionResult Login(int id, [FromBody] LoginModel loginModel)
+        [HttpPut("login")]
+        public async Task<IActionResult> Login([FromBody] LoginInputModel loginInputModel)
         {
-            return NoContent();
+            var loginUserViewModel = await _userService.Login(loginInputModel);
+
+            if (loginUserViewModel == null) 
+            {
+                return BadRequest();
+            }
+
+            return Ok(loginUserViewModel);
         }
     }
 }

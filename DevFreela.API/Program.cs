@@ -18,7 +18,11 @@ using DevFreela.Infrastructure.Persistence.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace DevFreela.API
 {
@@ -33,21 +37,49 @@ namespace DevFreela.API
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+           
+            builder.Services.AddSwaggerGen(c => {
+                
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name            = "Authorization",
+                    Type            = SecuritySchemeType.ApiKey,
+                    Scheme          = "Bearer",
+                    BearerFormat    = "JWT",
+                    In              = ParameterLocation.Header,
+                    Description     = "JWT Authorization header usando o esquema Bearer."
+                });
 
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                 {
+                     {
+                           new OpenApiSecurityScheme
+                             {
+                                 Reference = new OpenApiReference
+                                 {
+                                     Type = ReferenceType.SecurityScheme,
+                                     Id = "Bearer"
+                                 }
+                             },
+                             new string[] {}
+                     }
+                 });
+
+            });
+            
             builder.Services.Configure<OpeningTimeOption>(builder.Configuration.GetSection("OpeningTime"));
 
             var ConnectionString = builder.Configuration.GetConnectionString("DevFreelaCs");
 
             builder.Services.AddDbContext<DevFreelaDbContext>(options => options.UseSqlServer(ConnectionString));
-            
+
             //Banco de dados em memória temporária para testes
             //builder.Services.AddDbContext<DevFreelaDbContext>(options => options.UseInMemoryDatabase("devfreela"));
 
             //Services
-            builder.Services.AddScoped<IProjectService, ProjectService>(); 
+            builder.Services.AddScoped<IProjectService, ProjectService>();
             builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IUserService, UserService>();
+            //builder.Services.AddScoped<IUserService, UserService>();
 
             //Mediator
             builder.Services.AddMediatR(typeof(CreateProjectCommand));
@@ -61,6 +93,7 @@ namespace DevFreela.API
             //Repositories
             builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
             builder.Services.AddScoped<ISkillRepository, SkillRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             //Validator
             builder.Services.AddFluentValidationAutoValidation();
@@ -69,6 +102,24 @@ namespace DevFreela.API
 
             //AuthService
             builder.Services.AddScoped<IAuthService, AuthService>();
+
+            //Autenticação
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                            .AddJwtBearer(options =>
+                            {
+                                options.TokenValidationParameters = new TokenValidationParameters
+                                {
+                                    ValidateIssuer = true,
+                                    ValidateAudience = true,
+                                    ValidateLifetime = true,
+                                    ValidateIssuerSigningKey = true,
+
+                                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                                    ValidAudience = builder.Configuration["Jwt:Audience"],
+                                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                                };
+                            });
+
 
             var app = builder.Build();
 
@@ -82,6 +133,7 @@ namespace DevFreela.API
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
 
             app.MapControllers();
