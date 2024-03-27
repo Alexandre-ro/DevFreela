@@ -1,12 +1,13 @@
 ﻿using DevFreela.API.Models;
 using DevFreela.Application.InputModels.User;
 using DevFreela.Application.Services.Interfaces;
-using DevFreela.Application.ViewModels.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevFreela.API.Controllers
 {
     [Route("api/users")]
+    [Authorize]
     public class UsersController : ControllerBase
     {
 
@@ -32,6 +33,7 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Post([FromBody] CreateUserInputModel inputModel)
         {
             if (!ModelState.IsValid) 
@@ -49,6 +51,7 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpPut("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginInputModel loginInputModel)
         {
             var loginUserViewModel = await _userService.Login(loginInputModel);
